@@ -1,0 +1,1 @@
+to do: logging variables, basic math, make it better
