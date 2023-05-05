@@ -2,6 +2,7 @@ import commands.log as log
 import commands.comment as comment
 import commands.var_string as var_string
 import commands.var_int as var_int
+import commands.err as err
 
 class Lang():
     def __init__(self, file: list):
@@ -9,8 +10,10 @@ class Lang():
         self.commands = {
             "log": log.Command,
             "#": comment.Command,
+            "": comment.Command, # Stop it raising IllegalCommand when it hits an empty line
             "string": var_string.Command,
-            "int": var_int.Command
+            "int": var_int.Command,
+            "err": err.Command
         }
         self.namespace = {}
 
@@ -56,7 +59,6 @@ class Lang():
                 if "set" in command_results.keys():
                     for k, v in command_results["set"].items():
                         self.namespace[k] = v
-            print(self.namespace)
 
 class Error():
     def __init__(self, errtype: str, err: str):

@@ -1,1 +1,12 @@
-int test 1
+# This is a comment
+
+log "Hello, world!"
+
+# This declares a string
+string name "John"
+
+# This declares an int
+int age 13
+
+# This raises an error and stops the code
+err SomeErrorName "An error occurred!"
