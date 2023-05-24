@@ -59,7 +59,7 @@ class Lang():
             Error("IllegalCommand", f"The command '{command}' wasn't recognized by the interpreter, maybe check for typos and try again?", self.curline).invoke()
         else:
             match command:
-                case "string" | "int" | "del" | "ns":
+                case "string" | "int" | "del" | "ns" | "log":
                     commandclass = self.commands[command](args, self.namespace)
                 
                 case default:

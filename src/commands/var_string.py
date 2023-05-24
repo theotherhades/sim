@@ -5,23 +5,43 @@ class Command():
         self.namespace = namespace
 
     def invoke(self):
-        if len(self.args) == 1:
+        if self.args[0] in self.namespace.keys():
             return {
-                "error": ["N/A"],
-                "set": {
-                    self.args[0]: {
-                        "type": "int",
-                        "val": None
-                    }
-                }
+                "error": ["NameCollision", f"The name '{self.args[0]}' is already taken."]
             }
-        else:
+        elif len(self.args) == 1:
             return {
                 "error": ["N/A"],
                 "set": {
                     self.args[0]: {
                         "type": "string",
-                        "val": self.args[1]
+                        "val": None
                     }
                 }
             }
+        else:
+            if self.args[1].startswith("$"):
+                if self.args[1][1:] in self.namespace.keys():
+                    return {
+                        "error": ["N/A"],
+                        "set": {
+                            self.args[0]: {
+                                "type": "string",
+                                "val": str(self.namespace[self.args[1][1:]]["val"])
+                            }
+                        }
+                    }
+                else:
+                    return {
+                        "error": ["UnknownVariable", f"The variable '{self.args[1][1:]}' does not exist."],
+                    }
+            else:
+                return {
+                        "error": ["N/A"],
+                        "set": {
+                            self.args[0]: {
+                                "type": "string",
+                                "val": self.args[1]
+                            }
+                        }
+                    }
