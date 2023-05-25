@@ -39,6 +39,14 @@ class Command():
                     return {
                         "error": ["UnknownVariable", f"The variable '{self.args[1][1:]}' does not exist."],
                     }
+            elif self.args[1].startswith("("):
+                if self.args[1].endswith(")") == False:
+                    return {
+                        "error": ["InvalidSyntax", f"Math statement '{self.args[1]}' wasn't terminated"]
+                    }
+                else:
+                    math_statement = self.args[1][1:-1]
+                    # do this later
             else:
                 return {
                     "error": ["InvalidType", f"'{self.args[1]}' is not an integer."]
